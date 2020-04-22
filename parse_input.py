@@ -14,10 +14,10 @@ def parse_input(s):
         print("ERROR: only one equal sign expected")
         sys.exit(1)
 
-    regexp = r"(([+-]?\d+(\.\d+)?)[*]x\^([+-]?\d+(\.\d+)?))"
-
+    regexp = r"(([+-]?\d+(\.\d+)?)[*][Xx]\^([+-]?\d+(\.\d+)?))"
     r_1, r_2 = re.findall(regexp, s[0]), re.findall(regexp, s[1])
-    print (r_1, r_2)
+    # print("r_1 = ", r_1)
+    # print("r_2 = ", r_2)
     m = [{}, {}]
     for res in r_1:
         m[0][int(res[3])] = float(res[1])
@@ -35,3 +35,4 @@ def parse_input(s):
     # Get all x^y values from y=0 to y=2.
     res = [ m[0][i] if i in m[0] else 0.0 for i in range(3) ]
     print(str(res))
+    
