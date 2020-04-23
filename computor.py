@@ -15,7 +15,7 @@ def calc(data):
     print(data)
     print (len(data))
     while (i < len(data)):
-        if (data[i] != 0.0 and (i < len(data) - 1)):
+        if (data[i] != 0.0):
             print (i)
             degree += 1
         i += 1
