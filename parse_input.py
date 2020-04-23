@@ -12,11 +12,13 @@ def print_reduced_form(m):
             signs += [" + "]
         else:
             signs += [" - "]
-    print (signs)
 
     s = "Reduced form: " + str(m[0][0]) + " * X^" + str(0)
-    s += signs[1] + str(m[0][1]) + " * X^" + str(1)
-    s += signs[2] + str(m[0][2]) + " * X^" + str(2) + " = 0"
+    if (len(m[0]) >= 2):
+        s += signs[1] + str(m[0][1]) + " * X^" + str(1)
+    if (len(m[0]) >= 3):
+        s += signs[2] + str(m[0][2]) + " * X^" + str(2)
+    s += " = 0"
     s = s.replace("+ -", "-")
     print(s)
 
@@ -47,6 +49,8 @@ def parse_input(s):
         else:
             m[0][key] = -m[1][key]
 
+    print("len = " + str(len(m[0])))
+    print (m[0])
     print_reduced_form(m)
 
     # Get all x^y values from y=0 to y=2.

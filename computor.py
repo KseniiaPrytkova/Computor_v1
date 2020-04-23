@@ -12,25 +12,28 @@ def calc(data):
     root_2 = 0
 
     print (data)
+    # ax^2 + bx + c = 0
     degree = len(data) - 1
     if (degree >= 3):
         print("The polynomial degree is stricly greater than 2, I can't solve.")
         sys.exit(1)
+
+    print (len(data))
     print("Polynomial degree: " + str(degree))
 
     # calculate discriminant D = b2 - 4ac
-    d = (data[1] * data[1]) - (4 * data[0] * data[2])
+    d = (data[1] * data[1]) - (4 * data[2] * data[0])
     print("D = "+ str(d))
 
     if (d > 0):
         print("Discriminant is strictly positive, the two solutions are:")
         # x1 = ((-b + sqrt(D)) / (2a))
-        print ("(" + str(-data[1]) + " + " + str(comp_sqrt(d)) + ")" + " / " + "(" + "2" + " * " + str(data[0]) + ")")
-        root_1 = ((-data[1] + comp_sqrt(d)) / (2 * data[0]))
-        print (root_1)
+        # print ("(" + str(-data[1]) + " + " + str(comp_sqrt(d)) + ")" + " / " + "(" + "2" + " * " + str(data[0]) + ")")
+        root_1 = ((-data[1] - comp_sqrt(d)) / (2 * data[2]))
+        print("%.6f" % root_1)
         # x2 = ((-b - sqrt(D)) / (2a))
-        root_2 = ((-data[1] - comp_sqrt(d)) / (2 * data[0]))
-        print (root_2)
+        root_2 = ((-data[1] + comp_sqrt(d)) / (2 * data[2]))
+        print("%.6f" % root_2)
 
 
 
