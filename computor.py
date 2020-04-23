@@ -5,6 +5,12 @@ import re
 from parse_input import parse_input
 from utilities import comp_abs, comp_sqrt
 
+def print_the_bajskorv(nm):
+    s = str(round(nm, 6))
+    if s[-2 : ] == ".0":
+        s = s[:-2]
+    print(s)
+
 def calc(data):
     degree = 0
     d = 0
@@ -12,25 +18,23 @@ def calc(data):
     root_2 = 0
     i = 0
 
-    print(data)
-    print (len(data))
+    # print(data)
+    # print (len(data))
     while (i < len(data)):
         if (data[i] != 0.0):
-            print (i)
-            degree += 1
+            degree = i
         i += 1
-    degree -= 1
 
     print("Polynomial degree: " + str(degree))
 
-    if (degree > 3):
+    if (degree >= 3):
         print("The polynomial degree is stricly greater than 2, I can't solve.")
         sys.exit(1)
     elif (degree == 1):
         # ax + b = 0
         print("The solution is:")
         root_1 = - (data[0] / data[1])
-        print("%.6f" % root_1)
+        print_the_bajskorv(root_1)
     elif (degree == 2):
         # ax^2 + bx + c = 0
         # calculate discriminant D = b2 - 4ac
@@ -42,10 +46,10 @@ def calc(data):
             # x1 = ((-b + sqrt(D)) / (2a))
             # print ("(" + str(-data[1]) + " + " + str(comp_sqrt(d)) + ")" + " / " + "(" + "2" + " * " + str(data[0]) + ")")
             root_1 = ((-data[1] - comp_sqrt(d)) / (2 * data[2]))
-            print("%.6f" % root_1)
+            print_the_bajskorv(root_1)
             # x2 = ((-b - sqrt(D)) / (2a))
             root_2 = ((-data[1] + comp_sqrt(d)) / (2 * data[2]))
-            print("%.6f" % root_2)
+            print_the_bajskorv(root_2)
 
 
 
