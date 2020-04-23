@@ -3,21 +3,7 @@
 import sys
 import re
 from parse_input import parse_input
-
-def ntsqrt(n):
-    sgn = 0
-    if n < 0:
-        sgn = -1
-        n = -n
-    val = n
-    while True:
-        last = val
-        val = (val + n / val) * 0.5
-        if abs(val - last) < 1e-9:
-            break
-    if sgn < 0:
-        return complex(0, val)
-    return val
+from utilities import comp_abs, comp_sqrt
 
 def calc(data):
     degree = 0
@@ -39,10 +25,11 @@ def calc(data):
     if (d > 0):
         print("Discriminant is strictly positive, the two solutions are:")
         # x1 = ((-b + sqrt(D)) / (2a))
-        root_1 = ((-data[1] + ntsqrt(d)) / (2 * data[0]))
+        print ("(" + str(-data[1]) + " + " + str(comp_sqrt(d)) + ")" + " / " + "(" + "2" + " * " + str(data[0]) + ")")
+        root_1 = ((-data[1] + comp_sqrt(d)) / (2 * data[0]))
         print (root_1)
         # x2 = ((-b - sqrt(D)) / (2a))
-        root_2 = ((-data[1] - ntsqrt(d)) / (2 * data[0]))
+        root_2 = ((-data[1] - comp_sqrt(d)) / (2 * data[0]))
         print (root_2)
 
 

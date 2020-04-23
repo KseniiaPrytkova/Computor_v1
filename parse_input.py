@@ -3,7 +3,22 @@
 import re
 import sys
 
-# def gen_reduced_form():
+def print_reduced_form(m):
+    signs = []
+    s = ""
+
+    for i, e in enumerate(m[0]):
+        if (e > 0):
+            signs += [" + "]
+        else:
+            signs += [" - "]
+    print (signs)
+
+    s = "Reduced form: " + str(m[0][0]) + " * X^" + str(0)
+    s += signs[1] + str(m[0][1]) + " * X^" + str(1)
+    s += signs[2] + str(m[0][2]) + " * X^" + str(2) + " = 0"
+    s = s.replace("+ -", "-")
+    print(s)
 
 def parse_input(s):
     # delete all spaces in a string:
@@ -32,14 +47,7 @@ def parse_input(s):
         else:
             m[0][key] = -m[1][key]
 
-    # print("final: " + str(m[0]))
-    # print("Reduced form: " + str(m[0][0]) + " * X^0" +
-    #         str(m[0][1]) + " * X^1" +
-    #         str(m[0][2]) + " * X^2")
-    print("Reduced form:")
-    for i in m[0]:
-        print(str(m[0][i]) + " * X^" + str(i))
-    print(" = 0")
+    print_reduced_form(m)
 
     # Get all x^y values from y=0 to y=2.
     res = [ m[0][i] if i in m[0] else 0.0 for i in range(3) ]
