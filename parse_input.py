@@ -49,8 +49,8 @@ def parse_input(s):
         else:
             m[0][key] = -m[1][key]
 
-    print("len = " + str(len(m[0])))
-    print (m[0])
+    # print("len = " + str(len(m[0])))
+    print (m)
     print_reduced_form(m)
 
     # Get all x^y values from y=0 to y=2.
