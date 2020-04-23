@@ -54,6 +54,6 @@ def parse_input(s):
     print_reduced_form(m)
 
     # Get all x^y values from y=0 to y=2.
-    res = [ m[0][i] if i in m[0] else 0.0 for i in range(3) ]
+    res = [ m[0][i] if i in m[0] else 0.0 for i in range(len(m[0])) ]
 
     return(res)
