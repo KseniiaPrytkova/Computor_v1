@@ -20,7 +20,8 @@ def print_reduced_form(m):
         s += signs[2] + str(m[0][2]) + " * X^" + str(2)
     s += " = 0"
     s = s.replace("+ -", "-")
-    print(s)
+    print('\x1b[6;33;45m' + s + '\x1b[0m')
+    # print(s)
 
 def parse_input(s):
     # delete all spaces in a string:

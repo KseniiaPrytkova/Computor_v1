@@ -3,58 +3,42 @@
 import sys
 import re
 from parse_input import parse_input
-from utilities import comp_abs, comp_sqrt
-
-def print_the_bajskorv(nm):
-    s = str(round(nm, 6))
-    if s[-2 : ] == ".0":
-        s = s[:-2]
-    print(s)
+# from utilities import comp_abs, comp_sqrt
+from equations import solve_linear_eq, solve_quadratic_eq
 
 def calc(data):
     degree = 0
-    d = 0
-    root_1 = 0
-    root_2 = 0
     i = 0
 
-    # print(data)
-    # print (len(data))
+    print(data)
+    print ("len = " + str(len(data)))
     while (i < len(data)):
         if (data[i] != 0.0):
             degree = i
         i += 1
 
-    print("Polynomial degree: " + str(degree))
-
+    print('\x1b[6;33;45m' + "Polynomial degree: " + str(degree) + '\x1b[0m')
+    # print("Polynomial degree: " + str(degree))
+    # print('\x1b[6;30;42m' + 'Success!' + '\x1b[0m')
     if (degree >= 3):
         print("The polynomial degree is stricly greater than 2, I can't solve.")
         sys.exit(1)
-    elif (degree == 1):
+    # elif (degree == 0):
+    #     print("degree == 0")
+    elif (degree == 1 or degree == 0):
         # ax + b = 0
-        print("The solution is:")
-        root_1 = - (data[0] / data[1])
-        print_the_bajskorv(root_1)
+        if (degree == 0):
+            print('\x1b[6;30;42m' + "This equation has no solutions." + '\x1b[0m')
+            # print("This equation has no solutions.")
+            sys.exit(0)
+        print("linear")
+        solve_linear_eq(data)
     elif (degree == 2):
         # ax^2 + bx + c = 0
-        # calculate discriminant D = b2 - 4ac
-        d = (data[1] * data[1]) - (4 * data[2] * data[0])
-        print("D = "+ str(d))
-
-        if (d > 0):
-            print("Discriminant is strictly positive, the two solutions are:")
-            # x1 = ((-b + sqrt(D)) / (2a))
-            # print ("(" + str(-data[1]) + " + " + str(comp_sqrt(d)) + ")" + " / " + "(" + "2" + " * " + str(data[0]) + ")")
-            root_1 = ((-data[1] - comp_sqrt(d)) / (2 * data[2]))
-            print_the_bajskorv(root_1)
-            # x2 = ((-b - sqrt(D)) / (2a))
-            root_2 = ((-data[1] + comp_sqrt(d)) / (2 * data[2]))
-            print_the_bajskorv(root_2)
-
-
-
-
-
+        solve_quadratic_eq(data)
+    else:
+        print('\x1b[6;30;42m' + "Error! Calculated degree is incorrect." + '\x1b[0m')
+        # print ("Error! Calculated degree is incorrect.")
 
 if __name__ == "__main__":
     # print(f"Arguments count: {len(sys.argv)}")
