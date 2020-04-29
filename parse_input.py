@@ -32,11 +32,9 @@ def check_parsed_input(s, r_1, r_2):
 
 def parse_input(s):
     # delete all spaces in a string:
-    # 5*X^0+4*X^1-9.3*X^2=1*X^0
     s = s.replace(" ", "")
     # ['5*X^0+4*X^1-9.3*X^2', '1*X^0']
     s_l = s.split('=')
-    # print (s)
     if len(s_l) != 2:
         sys.stderr.write("ERROR: exactly one equal sign expected\n")
         sys.exit(1)
