@@ -44,23 +44,36 @@ def parse_input(s):
 
     check_parsed_input(s, r_1, r_2)
 
-    m = [{}, {}]
+    m = [{0: [], 1: [], 2: []}, {0: [], 1: [], 2: []}]
     for res in r_1:
-        m[0][int(res[3])] = float(res[1])
+        m[0][int(res[3])] += [float(res[1])]
     for res in r_2:
-        m[1][int(res[3])] = float(res[1])
+        m[1][int(res[3])] += [float(res[1])]
 
+    # FIXME: play sound.
+    # FIXME: add flag -b: output to browser
+    # FIXME: argparse: add flag -i
+
+    n = [{}, {}]
+
+    # Simplify: left.
+    for key in m[0]:
+        n[0][key] = sum(m[0][key])
+
+    # Simplify: right.
     for key in m[1]:
-        if key in m[0]:
-            m[0][key] = m[0][key] - m[1][key]
-        else:
-            m[0][key] = -m[1][key]
+        n[1][key] = sum(m[1][key])
 
-    # print("len = " + str(len(m[0])))
-    #print (m)
-    print_reduced_form(m)
+    # Simplify: move all elements in the right to the left.
+    for key in n[1]:
+        if key in n[0]:
+            n[0][key] = n[0][key] - n[1][key]
+        else:
+            n[0][key] = -n[1][key]
+
+    print_reduced_form(n)
 
     # Get all x^y values from y=0 to y=2.
-    res = [ m[0][i] if i in m[0] else "-" for i in range(len(m[0])) ]
+    res = [ n[0][i] if i in n[0] else "-" for i in range(len(n[0])) ]
 
     return(res)

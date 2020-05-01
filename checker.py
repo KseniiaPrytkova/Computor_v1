@@ -20,7 +20,6 @@ if __name__ == "__main__":
     if err:
         sys.stderr.write("ERROR from program:\n" + err.decode('utf-8'))
         sys.exit(1)
-    #print("Output:\n" + out.decode('utf-8'))
 
     eq = sympify("Eq(" + s_eq.replace("=", ",") + ")")
     sol = solve(eq, dict=True, rational=False)
@@ -28,15 +27,3 @@ if __name__ == "__main__":
 
     print("PROGRAM:\n" + out.decode('utf-8'))
     print("SYMPY:\n" + str(sol))
-
-
-
-
-
-
-
-
-
-
-
-
