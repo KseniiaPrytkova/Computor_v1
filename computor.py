@@ -12,6 +12,7 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import time
 import tempfile
+import webbrowser
 
 def play_sound():
     try:
@@ -35,7 +36,8 @@ def open_in_browser(s):
         temp.write(s.encode('utf-8'))
         temp.write(b'</BODY>')
         temp.flush()
-        os.system('firefox ' + temp.name)
+        os.system("open -a /Applications/Safari.app " + temp.name)
+        # os.system('safari ' + temp.name)
         # Needed since the tempfile will be deleted before the browser can access it otherwise.
         time.sleep(0.2)
 
