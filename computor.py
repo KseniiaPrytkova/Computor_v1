@@ -3,9 +3,7 @@
 import sys
 import re
 from parse_input import parse_input
-# from utilities import comp_abs, comp_sqrt
 from equations import solve_linear_eq, solve_quadratic_eq
-
 import os
 import random
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
@@ -19,7 +17,7 @@ def play_sound():
         random.seed()
         sounds = [os.path.join("sounds/", file) for file in os.listdir("sounds") if file.endswith(".wav") or file.endswith(".WAV")]
         sound = random.choice(sounds)
-        print("sound: " + sound)
+        # print("sound: " + sound)
         pygame.init()
         pygame.mixer.music.load(sound)
         pygame.mixer.music.play()
@@ -28,7 +26,6 @@ def play_sound():
         pass
 
 def open_in_browser(s):
-    # TODO: check if osX.
     with tempfile.NamedTemporaryFile(prefix="index_", suffix=".html") as temp:
         temp.write(b'<HEAD>')
         temp.write(b'</HEAD>')
@@ -36,8 +33,8 @@ def open_in_browser(s):
         temp.write(s.encode('utf-8'))
         temp.write(b'</BODY>')
         temp.flush()
-        os.system("open -a /Applications/Safari.app " + temp.name)
-        # os.system('safari ' + temp.name)
+        webbrowser.open_new("file://" + temp.name)
+        # os.system("open -a /Applications/Safari.app " + temp.name)
         # Needed since the tempfile will be deleted before the browser can access it otherwise.
         time.sleep(0.2)
 
@@ -45,26 +42,19 @@ def calc(data, flag):
     degree = 0
     i = 0
 
-    #print(data)
-    #print ("len = " + str(len(data)))
     while (i < len(data)):
         if (data[i] != 0.0):
             degree = i
         i += 1
-
     result = ""
 
-    #print('\x1b[6;33;45m' + "Polynomial degree: " + str(degree) + '\x1b[0m')
-    # print("Polynomial degree: " + str(degree))
-    # print('\x1b[6;30;42m' + 'Success!' + '\x1b[0m')
+    print("Polynomial degree: " + str(degree))
     if (degree >= 3):
         if flags['c'] and not flags['b']:
             result = ('\x1b[6;30;42m' + "The polynomial degree is stricly greater than 2, I can't solve." + '\x1b[0m' + '\n')
         else:
             result = ("The polynomial degree is stricly greater than 2, I can't solve.\n")
         sys.exit(1)
-    # elif (degree == 0):
-    #     print("degree == 0")
     elif (degree == 1 or degree == 0):
         # ax + b = 0
         if (degree == 0):
@@ -73,7 +63,6 @@ def calc(data, flag):
             else:
                 result = ("This equation has no solutions.\n")
             sys.exit(0)
-        #print("linear")
         result = solve_linear_eq(data, flags)
     elif (degree == 2):
         # ax^2 + bx + c = 0
@@ -89,8 +78,8 @@ def calc(data, flag):
     else:
         sys.stdout.write(result)
 
-    #if flags['s']:
-    #    play_sound()
+    if flags['s']:
+       play_sound()
     play_sound()
 
 def get_args():
@@ -114,16 +103,14 @@ def get_args():
     return data, flags
 
 if __name__ == "__main__":
-    # print(f"Arguments count: {len(sys.argv)}")
-    # for i, arg in enumerate(sys.argv):
-    #     print(f"Argument {i:>6}: {arg}")
     data = []
     flags = {}
+
     try:
         data, flags = get_args()
     except Exception as e:
         sys.stderr.write("usage: all terms must be of the form a * x^p\n" +
-        "example: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0\n" + "flags avaliable: -c, -i, -b, -s")
+        "example: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0\n" + "flags avaliable:" + '\x1b[6;33;45m' + "-c, -i, -b, -s" + '\x1b[0m' + "\n")
         sys.exit(1)
 
     calc(data, flags)

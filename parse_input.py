@@ -50,20 +50,13 @@ def parse_input(s):
     for res in r_2:
         m[1][int(res[3])] += [float(res[1])]
 
-    # FIXME: play sound.
-    # FIXME: add flag -b: output to browser
-    # FIXME: argparse: add flag -i
-
     n = [{}, {}]
-
     # Simplify: left.
     for key in m[0]:
         n[0][key] = sum(m[0][key])
-
     # Simplify: right.
     for key in m[1]:
         n[1][key] = sum(m[1][key])
-
     # Simplify: move all elements in the right to the left.
     for key in n[1]:
         if key in n[0]:
@@ -72,7 +65,6 @@ def parse_input(s):
             n[0][key] = -n[1][key]
 
     print_reduced_form(n)
-
     # Get all x^y values from y=0 to y=2.
     res = [ n[0][i] if i in n[0] else "-" for i in range(len(n[0])) ]
 

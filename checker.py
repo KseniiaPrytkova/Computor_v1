@@ -1,10 +1,10 @@
+#!/usr/bin/env python
+
 import sys
 import re
 import subprocess
-
 import sympy
 from sympy import symbols,solve,sympify,evalf
-
 from parse_input import parse_input
 
 if __name__ == "__main__":
